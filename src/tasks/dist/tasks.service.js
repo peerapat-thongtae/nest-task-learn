@@ -35,6 +35,13 @@ var TasksService = /** @class */ (function () {
         this.tasks.push(task);
         return task;
     };
+    TasksService.prototype.updateTaskStatus = function (id, status) {
+        var task = this.getTaskById(id);
+        if (task) {
+            task.status = status;
+        }
+        return task;
+    };
     TasksService = __decorate([
         common_1.Injectable()
     ], TasksService);

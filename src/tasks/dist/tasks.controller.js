@@ -27,6 +27,9 @@ var TasksController = /** @class */ (function () {
     TasksController.prototype.createTask = function (createTaskDto) {
         return this.tasksService.createTask(createTaskDto);
     };
+    TasksController.prototype.updateTaskStatus = function (id, status) {
+        return this.tasksService.updateTaskStatus(id, status);
+    };
     __decorate([
         common_1.Get()
     ], TasksController.prototype, "getAllTasks");
@@ -42,6 +45,11 @@ var TasksController = /** @class */ (function () {
         common_1.Post(),
         __param(0, common_1.Body())
     ], TasksController.prototype, "createTask");
+    __decorate([
+        common_1.Patch(':id'),
+        __param(0, common_1.Param('id')),
+        __param(1, common_1.Body('status'))
+    ], TasksController.prototype, "updateTaskStatus");
     TasksController = __decorate([
         common_1.Controller('tasks')
     ], TasksController);
