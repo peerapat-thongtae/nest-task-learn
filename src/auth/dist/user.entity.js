@@ -36,7 +36,8 @@ var User = /** @class */ (function (_super) {
         typeorm_1.Column()
     ], User.prototype, "password");
     User = __decorate([
-        typeorm_1.Entity()
+        typeorm_1.Entity(),
+        typeorm_1.Unique(['username'])
     ], User);
     return User;
 }(typeorm_1.BaseEntity));

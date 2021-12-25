@@ -56,8 +56,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.UserRepository = void 0;
+var common_1 = require("@nestjs/common");
 var typeorm_1 = require("typeorm");
 var user_entity_1 = require("./user.entity");
+var bcrypt = require("bcrypt");
 var UserRepository = /** @class */ (function (_super) {
     __extends(UserRepository, _super);
     function UserRepository() {
@@ -65,19 +67,38 @@ var UserRepository = /** @class */ (function (_super) {
     }
     UserRepository.prototype.signUp = function (authCredentialsDto) {
         return __awaiter(this, void 0, void 0, function () {
-            var username, password, user;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var username, password, checkUser, salt, user, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         username = authCredentialsDto.username, password = authCredentialsDto.password;
+                        return [4 /*yield*/, this.findOne({ username: username })];
+                    case 1:
+                        checkUser = _b.sent();
+                        if (checkUser) {
+                            throw new common_1.ConflictException("user " + username + " already exists");
+                        }
+                        return [4 /*yield*/, bcrypt.genSalt()];
+                    case 2:
+                        salt = _b.sent();
                         user = new user_entity_1.User();
                         user.username = username;
-                        user.password = password;
+                        _a = user;
+                        return [4 /*yield*/, this.hashPassword(password, salt)];
+                    case 3:
+                        _a.password = _b.sent();
                         return [4 /*yield*/, user.save()];
-                    case 1:
-                        _a.sent();
+                    case 4:
+                        _b.sent();
                         return [2 /*return*/];
                 }
+            });
+        });
+    };
+    UserRepository.prototype.hashPassword = function (password, salt) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, bcrypt.hash(password, salt)];
             });
         });
     };
