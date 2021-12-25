@@ -18,7 +18,10 @@ var TasksService = /** @class */ (function () {
         return this.tasks;
     };
     TasksService.prototype.getTaskById = function (id) {
-        return this.tasks.find(function (task) { return task.id === id; });
+        var task = this.tasks.find(function (task) { return task.id === id; });
+        if (!task)
+            throw new common_1.NotFoundException("Task id " + id + " not found !");
+        return task;
     };
     TasksService.prototype.deleteTaskById = function (id) {
         this.tasks = this.tasks.filter(function (task) { return task.id !== id; });
