@@ -95,6 +95,43 @@ var UserRepository = /** @class */ (function (_super) {
             });
         });
     };
+    UserRepository.prototype.getUserByUsername = function (username) {
+        return __awaiter(this, void 0, Promise, function () {
+            var user;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.findOne({ username: username })];
+                    case 1:
+                        user = _a.sent();
+                        if (!user) {
+                            throw new common_1.NotFoundException("user " + username + " not found !");
+                        }
+                        return [2 /*return*/, user];
+                }
+            });
+        });
+    };
+    UserRepository.prototype.validateUser = function (authCredentials) {
+        return __awaiter(this, void 0, Promise, function () {
+            var username, password, user, validatePassword;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        username = authCredentials.username, password = authCredentials.password;
+                        return [4 /*yield*/, this.getUserByUsername(username)];
+                    case 1:
+                        user = _a.sent();
+                        return [4 /*yield*/, user.validatePassword(password)];
+                    case 2:
+                        validatePassword = _a.sent();
+                        if (!validatePassword) {
+                            return [2 /*return*/, false];
+                        }
+                        return [2 /*return*/, true];
+                }
+            });
+        });
+    };
     UserRepository.prototype.hashPassword = function (password, salt) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {

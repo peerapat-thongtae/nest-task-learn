@@ -60,6 +60,18 @@ var AuthService = /** @class */ (function () {
             });
         });
     };
+    AuthService.prototype.signIn = function (authCredentials) {
+        return __awaiter(this, void 0, Promise, function () {
+            var validateUser;
+            return __generator(this, function (_a) {
+                validateUser = this.userRepository.validateUser(authCredentials);
+                if (!validateUser) {
+                    throw new common_1.UnauthorizedException('username or password invalid !');
+                }
+                return [2 /*return*/];
+            });
+        });
+    };
     AuthService = __decorate([
         common_1.Injectable(),
         __param(0, typeorm_1.InjectRepository(user_repository_1.UserRepository))

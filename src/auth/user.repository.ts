@@ -1,4 +1,4 @@
-import { ConflictException } from '@nestjs/common';
+import { ConflictException, NotFoundException } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { User } from './user.entity';
@@ -20,6 +20,25 @@ export class UserRepository extends Repository<User> {
     user.username = username;
     user.password = await this.hashPassword(password, salt);
     await user.save();
+  }
+
+  async getUserByUsername(username: string): Promise<User> {
+    const user = await this.findOne({ username });
+    if (!user) {
+      throw new NotFoundException(`user ${username} not found !`);
+    }
+    return user;
+  }
+
+  async validateUser(authCredentials: AuthCredentialsDto): Promise<boolean> {
+    const { username, password } = authCredentials;
+    const user = await this.getUserByUsername(username);
+    const validatePassword = await user.validatePassword(password);
+    if (!validatePassword) {
+      return false;
+    }
+
+    return true;
   }
 
   private async hashPassword(password: string, salt: string) {

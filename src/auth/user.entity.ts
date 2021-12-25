@@ -1,3 +1,4 @@
+import { compare } from 'bcrypt';
 import {
   BaseEntity,
   Column,
@@ -17,4 +18,13 @@ export class User extends BaseEntity {
 
   @Column()
   password: string;
+
+  async validatePassword(password: string): Promise<boolean> {
+    const isMatch = await compare(password, this.password);
+    if (!isMatch) {
+      // throw new BadRequestException('Invalid password !');
+      return false;
+    }
+    return true;
+  }
 }

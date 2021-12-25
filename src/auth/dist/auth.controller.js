@@ -18,10 +18,17 @@ var AuthController = /** @class */ (function () {
     AuthController.prototype.signUp = function (authCredentials) {
         return this.authService.signUp(authCredentials);
     };
+    AuthController.prototype.signIn = function (authCredentials) {
+        return this.authService.signIn(authCredentials);
+    };
     __decorate([
         common_1.Post('signup'),
         __param(0, common_1.Body(common_1.ValidationPipe))
     ], AuthController.prototype, "signUp");
+    __decorate([
+        common_1.Post('signin'),
+        __param(0, common_1.Body(common_1.ValidationPipe))
+    ], AuthController.prototype, "signIn");
     AuthController = __decorate([
         common_1.Controller('auth')
     ], AuthController);
