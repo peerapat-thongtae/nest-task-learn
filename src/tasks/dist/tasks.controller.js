@@ -43,6 +43,7 @@ var TasksController = /** @class */ (function () {
     ], TasksController.prototype, "deleteTaskById");
     __decorate([
         common_1.Post(),
+        common_1.UsePipes(common_1.ValidationPipe),
         __param(0, common_1.Body())
     ], TasksController.prototype, "createTask");
     __decorate([
