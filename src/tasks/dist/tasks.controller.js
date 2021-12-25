@@ -18,16 +18,15 @@ var TasksController = /** @class */ (function () {
     TasksController.prototype.getAllTasks = function () {
         return this.tasksService.getAllTasks();
     };
-    TasksController.prototype.createTask = function (title, description) {
-        return this.tasksService.createTask(title, description);
+    TasksController.prototype.createTask = function (createTaskDto) {
+        return this.tasksService.createTask(createTaskDto);
     };
     __decorate([
         common_1.Get()
     ], TasksController.prototype, "getAllTasks");
     __decorate([
         common_1.Post(),
-        __param(0, common_1.Body('title')),
-        __param(1, common_1.Body('description'))
+        __param(0, common_1.Body())
     ], TasksController.prototype, "createTask");
     TasksController = __decorate([
         common_1.Controller('tasks')
