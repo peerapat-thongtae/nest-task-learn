@@ -7,11 +7,13 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { TaskStatusValidationPipe } from 'src/pipes/task-status-validation.pipe';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { FilterTaskDto } from './dto/filter-task.dto';
 import { TaskStatus } from './enum/task-status.enum';
 import { Task } from './tasks.entity';
 import { TasksService } from './tasks.service';
@@ -21,8 +23,10 @@ export class TasksController {
   constructor(private tasksService: TasksService) {}
 
   @Get()
-  getAllTasks(): Promise<Task[]> {
-    return this.tasksService.getAllTasks();
+  getAllTasks(
+    @Query(ValidationPipe) filterDto: FilterTaskDto,
+  ): Promise<Task[]> {
+    return this.tasksService.getAllTasks(filterDto);
   }
 
   @Get(':id')
