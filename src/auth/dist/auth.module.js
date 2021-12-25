@@ -6,24 +6,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.AppModule = void 0;
+exports.AuthModule = void 0;
 var common_1 = require("@nestjs/common");
 var typeorm_1 = require("@nestjs/typeorm");
-var app_controller_1 = require("./app.controller");
-var app_service_1 = require("./app.service");
-var typeorm_config_1 = require("./config/typeorm.config");
-var tasks_module_1 = require("./tasks/tasks.module");
-var auth_module_1 = require("./auth/auth.module");
-var AppModule = /** @class */ (function () {
-    function AppModule() {
+var auth_controller_1 = require("./auth.controller");
+var auth_service_1 = require("./auth.service");
+var user_repository_1 = require("./user.repository");
+var AuthModule = /** @class */ (function () {
+    function AuthModule() {
     }
-    AppModule = __decorate([
+    AuthModule = __decorate([
         common_1.Module({
-            imports: [typeorm_1.TypeOrmModule.forRoot(typeorm_config_1.typeormConfig), tasks_module_1.TasksModule, auth_module_1.AuthModule],
-            controllers: [app_controller_1.AppController],
-            providers: [app_service_1.AppService]
+            imports: [typeorm_1.TypeOrmModule.forFeature([user_repository_1.UserRepository])],
+            controllers: [auth_controller_1.AuthController],
+            providers: [auth_service_1.AuthService]
         })
-    ], AppModule);
-    return AppModule;
+    ], AuthModule);
+    return AuthModule;
 }());
-exports.AppModule = AppModule;
+exports.AuthModule = AuthModule;
