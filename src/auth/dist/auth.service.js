@@ -45,92 +45,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.TasksService = void 0;
+exports.AuthService = void 0;
 var common_1 = require("@nestjs/common");
 var typeorm_1 = require("@nestjs/typeorm");
-var task_status_enum_1 = require("./enum/task-status.enum");
-var tasks_entity_1 = require("./tasks.entity");
-var tasks_repository_1 = require("./tasks.repository");
-var TasksService = /** @class */ (function () {
-    function TasksService(taskRepository) {
-        this.taskRepository = taskRepository;
+var user_repository_1 = require("./user.repository");
+var AuthService = /** @class */ (function () {
+    function AuthService(userRepository) {
+        this.userRepository = userRepository;
     }
-    TasksService.prototype.getAllTasks = function (filterDto) {
+    AuthService.prototype.signUp = function (authCredentials) {
         return __awaiter(this, void 0, Promise, function () {
-            var tasks;
             return __generator(this, function (_a) {
-                tasks = this.taskRepository.getAllTasks(filterDto);
-                return [2 /*return*/, tasks];
+                return [2 /*return*/, this.userRepository.signUp(authCredentials)];
             });
         });
     };
-    TasksService.prototype.getTaskById = function (id) {
-        return __awaiter(this, void 0, Promise, function () {
-            var task;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.taskRepository.findOne(id)];
-                    case 1:
-                        task = _a.sent();
-                        if (!task)
-                            throw new common_1.NotFoundException("Task id " + id + " not found !");
-                        return [2 /*return*/, task];
-                }
-            });
-        });
-    };
-    TasksService.prototype.deleteTaskById = function (id) {
-        return __awaiter(this, void 0, Promise, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.taskRepository["delete"](id)];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    TasksService.prototype.createTask = function (createTaskDto) {
-        return __awaiter(this, void 0, Promise, function () {
-            var title, description, task;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        title = createTaskDto.title, description = createTaskDto.description;
-                        task = new tasks_entity_1.Task();
-                        task.title = title;
-                        task.description = description;
-                        task.status = task_status_enum_1.TaskStatus.OPEN;
-                        return [4 /*yield*/, task.save()];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/, task];
-                }
-            });
-        });
-    };
-    TasksService.prototype.updateTaskStatus = function (id, status) {
-        return __awaiter(this, void 0, Promise, function () {
-            var task;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getTaskById(id)];
-                    case 1:
-                        task = _a.sent();
-                        task.status = status;
-                        return [4 /*yield*/, task.save()];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/, task];
-                }
-            });
-        });
-    };
-    TasksService = __decorate([
+    AuthService = __decorate([
         common_1.Injectable(),
-        __param(0, typeorm_1.InjectRepository(tasks_repository_1.TaskRepository))
-    ], TasksService);
-    return TasksService;
+        __param(0, typeorm_1.InjectRepository(user_repository_1.UserRepository))
+    ], AuthService);
+    return AuthService;
 }());
-exports.TasksService = TasksService;
+exports.AuthService = AuthService;
