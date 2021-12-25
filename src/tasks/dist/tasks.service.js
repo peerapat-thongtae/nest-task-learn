@@ -17,6 +17,9 @@ var TasksService = /** @class */ (function () {
     TasksService.prototype.getAllTasks = function () {
         return this.tasks;
     };
+    TasksService.prototype.getTaskById = function (id) {
+        return this.tasks.find(function (task) { return task.id === id; });
+    };
     TasksService.prototype.createTask = function (createTaskDto) {
         var title = createTaskDto.title, description = createTaskDto.description;
         var task = {

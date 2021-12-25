@@ -18,12 +18,19 @@ var TasksController = /** @class */ (function () {
     TasksController.prototype.getAllTasks = function () {
         return this.tasksService.getAllTasks();
     };
+    TasksController.prototype.getTaskById = function (id) {
+        return this.tasksService.getTaskById(id);
+    };
     TasksController.prototype.createTask = function (createTaskDto) {
         return this.tasksService.createTask(createTaskDto);
     };
     __decorate([
         common_1.Get()
     ], TasksController.prototype, "getAllTasks");
+    __decorate([
+        common_1.Get(':id'),
+        __param(0, common_1.Param('id'))
+    ], TasksController.prototype, "getTaskById");
     __decorate([
         common_1.Post(),
         __param(0, common_1.Body())
