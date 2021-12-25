@@ -20,6 +20,10 @@ var TasksService = /** @class */ (function () {
     TasksService.prototype.getTaskById = function (id) {
         return this.tasks.find(function (task) { return task.id === id; });
     };
+    TasksService.prototype.deleteTaskById = function (id) {
+        this.tasks = this.tasks.filter(function (task) { return task.id !== id; });
+        return true;
+    };
     TasksService.prototype.createTask = function (createTaskDto) {
         var title = createTaskDto.title, description = createTaskDto.description;
         var task = {
