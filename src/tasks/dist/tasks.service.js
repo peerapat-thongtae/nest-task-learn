@@ -49,11 +49,16 @@ var tasks_entity_1 = require("./tasks.entity");
 var TasksService = /** @class */ (function () {
     function TasksService(taskRepository) {
         this.taskRepository = taskRepository;
-        this.tasks = [];
     }
-    // getAllTasks() {
-    //   return this.tasks;
-    // }
+    TasksService.prototype.getAllTasks = function () {
+        return __awaiter(this, void 0, Promise, function () {
+            var tasks;
+            return __generator(this, function (_a) {
+                tasks = this.taskRepository.find();
+                return [2 /*return*/, tasks];
+            });
+        });
+    };
     TasksService.prototype.getTaskById = function (id) {
         return __awaiter(this, void 0, Promise, function () {
             var task;
@@ -69,10 +74,18 @@ var TasksService = /** @class */ (function () {
             });
         });
     };
-    // deleteTaskById(id: string): boolean {
-    //   // this.tasks = this.tasks.filter((task) => task.id !== id);
-    //   // return true;
-    // }
+    TasksService.prototype.deleteTaskById = function (id) {
+        return __awaiter(this, void 0, Promise, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.taskRepository["delete"](id)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     TasksService.prototype.createTask = function (createTaskDto) {
         return __awaiter(this, void 0, Promise, function () {
             var title, description, task;
@@ -86,6 +99,23 @@ var TasksService = /** @class */ (function () {
                         task.status = task_status_enum_1.TaskStatus.OPEN;
                         return [4 /*yield*/, task.save()];
                     case 1:
+                        _a.sent();
+                        return [2 /*return*/, task];
+                }
+            });
+        });
+    };
+    TasksService.prototype.updateTaskStatus = function (id, status) {
+        return __awaiter(this, void 0, Promise, function () {
+            var task;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getTaskById(id)];
+                    case 1:
+                        task = _a.sent();
+                        task.status = status;
+                        return [4 /*yield*/, task.save()];
+                    case 2:
                         _a.sent();
                         return [2 /*return*/, task];
                 }
