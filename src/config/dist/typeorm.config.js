@@ -8,6 +8,6 @@ exports.typeormConfig = {
     username: 'user',
     password: '',
     database: 'taskmanagement',
-    entities: [__dirname + '/../**/*.entity.ts'],
+    entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     synchronize: true
 };

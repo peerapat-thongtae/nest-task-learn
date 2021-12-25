@@ -2,13 +2,13 @@
 exports.__esModule = true;
 exports.TaskStatusValidationPipe = void 0;
 var common_1 = require("@nestjs/common");
-var tasks_model_1 = require("src/tasks/tasks.model");
+var task_status_enum_1 = require("src/tasks/enum/task-status.enum");
 var TaskStatusValidationPipe = /** @class */ (function () {
     function TaskStatusValidationPipe() {
         this.allowedStatuses = [
-            tasks_model_1.TaskStatus.OPEN,
-            tasks_model_1.TaskStatus.IN_PROGRESS,
-            tasks_model_1.TaskStatus.DONE,
+            task_status_enum_1.TaskStatus.OPEN,
+            task_status_enum_1.TaskStatus.IN_PROGRESS,
+            task_status_enum_1.TaskStatus.DONE,
         ];
     }
     TaskStatusValidationPipe.prototype.transform = function (value) {
