@@ -1,4 +1,17 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -45,44 +58,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.AuthService = void 0;
+exports.JWTSStrategy = void 0;
 var common_1 = require("@nestjs/common");
+var passport_1 = require("@nestjs/passport");
 var typeorm_1 = require("@nestjs/typeorm");
+var passport_jwt_1 = require("passport-jwt");
 var user_repository_1 = require("./user.repository");
-var AuthService = /** @class */ (function () {
-    function AuthService(userRepository, jwtService) {
-        this.userRepository = userRepository;
-        this.jwtService = jwtService;
+var JWTSStrategy = /** @class */ (function (_super) {
+    __extends(JWTSStrategy, _super);
+    function JWTSStrategy(userRepository) {
+        var _this = _super.call(this, {
+            jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
+            secretOrKey: 'topSecret51'
+        }) || this;
+        _this.userRepository = userRepository;
+        return _this;
     }
-    AuthService.prototype.signUp = function (authCredentials) {
-        return __awaiter(this, void 0, Promise, function () {
+    JWTSStrategy.prototype.validate = function (payload) {
+        return __awaiter(this, void 0, void 0, function () {
+            var username, user;
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.userRepository.signUp(authCredentials)];
+                username = payload.username;
+                user = this.userRepository.getUserByUsername(username);
+                return [2 /*return*/, user];
             });
         });
     };
-    AuthService.prototype.signIn = function (authCredentials) {
-        return __awaiter(this, void 0, Promise, function () {
-            var username, payload, accessToken;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.userRepository.validateUser(authCredentials)];
-                    case 1:
-                        username = _a.sent();
-                        if (!username) {
-                            throw new common_1.UnauthorizedException('credentials invalid !');
-                        }
-                        payload = { username: username };
-                        accessToken = this.jwtService.sign(payload);
-                        return [2 /*return*/, { accessToken: accessToken }];
-                }
-            });
-        });
-    };
-    AuthService = __decorate([
+    JWTSStrategy = __decorate([
         common_1.Injectable(),
         __param(0, typeorm_1.InjectRepository(user_repository_1.UserRepository))
-    ], AuthService);
-    return AuthService;
-}());
-exports.AuthService = AuthService;
+    ], JWTSStrategy);
+    return JWTSStrategy;
+}(passport_1.PassportStrategy(passport_jwt_1.Strategy)));
+exports.JWTSStrategy = JWTSStrategy;

@@ -124,10 +124,10 @@ var UserRepository = /** @class */ (function (_super) {
                         return [4 /*yield*/, user.validatePassword(password)];
                     case 2:
                         validatePassword = _a.sent();
-                        if (!validatePassword) {
-                            return [2 /*return*/, false];
+                        if (validatePassword) {
+                            return [2 /*return*/, username];
                         }
-                        return [2 /*return*/, true];
+                        return [2 /*return*/, null];
                 }
             });
         });

@@ -13,6 +13,7 @@ var passport_1 = require("@nestjs/passport");
 var typeorm_1 = require("@nestjs/typeorm");
 var auth_controller_1 = require("./auth.controller");
 var auth_service_1 = require("./auth.service");
+var jwt_strategy_1 = require("./jwt.strategy");
 var user_repository_1 = require("./user.repository");
 var AuthModule = /** @class */ (function () {
     function AuthModule() {
@@ -32,7 +33,8 @@ var AuthModule = /** @class */ (function () {
                 }),
             ],
             controllers: [auth_controller_1.AuthController],
-            providers: [auth_service_1.AuthService]
+            providers: [auth_service_1.AuthService, jwt_strategy_1.JWTSStrategy],
+            exports: [jwt_strategy_1.JWTSStrategy, passport_1.PassportModule]
         })
     ], AuthModule);
     return AuthModule;
