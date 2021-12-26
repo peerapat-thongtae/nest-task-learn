@@ -11,7 +11,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 exports.__esModule = true;
 exports.AuthController = void 0;
 var common_1 = require("@nestjs/common");
-var passport_1 = require("@nestjs/passport");
 var AuthController = /** @class */ (function () {
     function AuthController(authService) {
         this.authService = authService;
@@ -22,9 +21,6 @@ var AuthController = /** @class */ (function () {
     AuthController.prototype.signIn = function (authCredentials) {
         return this.authService.signIn(authCredentials);
     };
-    AuthController.prototype.test = function (req) {
-        console.log(req);
-    };
     __decorate([
         common_1.Post('signup'),
         __param(0, common_1.Body(common_1.ValidationPipe))
@@ -33,11 +29,6 @@ var AuthController = /** @class */ (function () {
         common_1.Post('signin'),
         __param(0, common_1.Body(common_1.ValidationPipe))
     ], AuthController.prototype, "signIn");
-    __decorate([
-        common_1.Post('test'),
-        common_1.UseGuards(passport_1.AuthGuard()),
-        __param(0, common_1.Req())
-    ], AuthController.prototype, "test");
     AuthController = __decorate([
         common_1.Controller('auth')
     ], AuthController);
