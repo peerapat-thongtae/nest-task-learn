@@ -8,6 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.AuthModule = void 0;
 var common_1 = require("@nestjs/common");
+var jwt_1 = require("@nestjs/jwt");
+var passport_1 = require("@nestjs/passport");
 var typeorm_1 = require("@nestjs/typeorm");
 var auth_controller_1 = require("./auth.controller");
 var auth_service_1 = require("./auth.service");
@@ -17,7 +19,18 @@ var AuthModule = /** @class */ (function () {
     }
     AuthModule = __decorate([
         common_1.Module({
-            imports: [typeorm_1.TypeOrmModule.forFeature([user_repository_1.UserRepository])],
+            imports: [
+                typeorm_1.TypeOrmModule.forFeature([user_repository_1.UserRepository]),
+                passport_1.PassportModule.register({
+                    defaultStrategy: 'jwt'
+                }),
+                jwt_1.JwtModule.register({
+                    secret: 'topSecret51',
+                    signOptions: {
+                        expiresIn: 3600
+                    }
+                }),
+            ],
             controllers: [auth_controller_1.AuthController],
             providers: [auth_service_1.AuthService]
         })
