@@ -11,6 +11,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 exports.__esModule = true;
 exports.TasksController = void 0;
 var common_1 = require("@nestjs/common");
+var passport_1 = require("@nestjs/passport");
 var task_status_validation_pipe_1 = require("src/pipes/task-status-validation.pipe");
 var TasksController = /** @class */ (function () {
     function TasksController(tasksService) {
@@ -54,7 +55,8 @@ var TasksController = /** @class */ (function () {
         __param(1, common_1.Body('status', task_status_validation_pipe_1.TaskStatusValidationPipe))
     ], TasksController.prototype, "updateTaskStatus");
     TasksController = __decorate([
-        common_1.Controller('tasks')
+        common_1.Controller('tasks'),
+        common_1.UseGuards(passport_1.AuthGuard())
     ], TasksController);
     return TasksController;
 }());

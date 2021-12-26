@@ -9,6 +9,7 @@ exports.__esModule = true;
 exports.TasksModule = void 0;
 var common_1 = require("@nestjs/common");
 var typeorm_1 = require("@nestjs/typeorm");
+var auth_module_1 = require("src/auth/auth.module");
 var tasks_controller_1 = require("./tasks.controller");
 var tasks_repository_1 = require("./tasks.repository");
 var tasks_service_1 = require("./tasks.service");
@@ -17,7 +18,7 @@ var TasksModule = /** @class */ (function () {
     }
     TasksModule = __decorate([
         common_1.Module({
-            imports: [typeorm_1.TypeOrmModule.forFeature([tasks_repository_1.TaskRepository])],
+            imports: [typeorm_1.TypeOrmModule.forFeature([tasks_repository_1.TaskRepository]), auth_module_1.AuthModule],
             controllers: [tasks_controller_1.TasksController],
             providers: [tasks_service_1.TasksService]
         })
