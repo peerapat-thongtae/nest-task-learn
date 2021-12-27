@@ -22,7 +22,7 @@ var TasksController = /** @class */ (function () {
         return this.tasksService.getAllTasks(filterDto, user);
     };
     TasksController.prototype.getTaskById = function (id, user) {
-        return this.tasksService.getTaskById(id);
+        return this.tasksService.getTaskById(id, user);
     };
     TasksController.prototype.deleteTaskById = function (id) {
         return this.tasksService.deleteTaskById(id);
@@ -30,8 +30,8 @@ var TasksController = /** @class */ (function () {
     TasksController.prototype.createTask = function (createTaskDto, user) {
         return this.tasksService.createTask(createTaskDto, user);
     };
-    TasksController.prototype.updateTaskStatus = function (id, status) {
-        return this.tasksService.updateTaskStatus(id, status);
+    TasksController.prototype.updateTaskStatus = function (id, status, user) {
+        return this.tasksService.updateTaskStatus(id, status, user);
     };
     __decorate([
         common_1.Get(),
@@ -56,7 +56,8 @@ var TasksController = /** @class */ (function () {
     __decorate([
         common_1.Patch(':id'),
         __param(0, common_1.Param('id', common_1.ParseIntPipe)),
-        __param(1, common_1.Body('status', task_status_validation_pipe_1.TaskStatusValidationPipe))
+        __param(1, common_1.Body('status', task_status_validation_pipe_1.TaskStatusValidationPipe)),
+        __param(2, get_user_decorator_1.GetUser())
     ], TasksController.prototype, "updateTaskStatus");
     TasksController = __decorate([
         common_1.Controller('tasks'),

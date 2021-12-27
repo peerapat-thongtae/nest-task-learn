@@ -48,7 +48,6 @@ exports.__esModule = true;
 exports.TasksService = void 0;
 var common_1 = require("@nestjs/common");
 var typeorm_1 = require("@nestjs/typeorm");
-var user_entity_1 = require("src/auth/user.entity");
 var tasks_repository_1 = require("./tasks.repository");
 var TasksService = /** @class */ (function () {
     function TasksService(taskRepository) {
@@ -99,14 +98,12 @@ var TasksService = /** @class */ (function () {
             });
         });
     };
-    TasksService.prototype.updateTaskStatus = function (id, status) {
+    TasksService.prototype.updateTaskStatus = function (id, status, user) {
         return __awaiter(this, void 0, Promise, function () {
-            var user, task;
+            var task;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        user = new user_entity_1.User();
-                        return [4 /*yield*/, this.getTaskById(id, user)];
+                    case 0: return [4 /*yield*/, this.getTaskById(id, user)];
                     case 1:
                         task = _a.sent();
                         task.status = status;
