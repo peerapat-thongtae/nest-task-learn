@@ -48,6 +48,7 @@ exports.__esModule = true;
 exports.TasksService = void 0;
 var common_1 = require("@nestjs/common");
 var typeorm_1 = require("@nestjs/typeorm");
+var user_entity_1 = require("src/auth/user.entity");
 var tasks_repository_1 = require("./tasks.repository");
 var TasksService = /** @class */ (function () {
     function TasksService(taskRepository) {
@@ -62,12 +63,14 @@ var TasksService = /** @class */ (function () {
             });
         });
     };
-    TasksService.prototype.getTaskById = function (id) {
+    TasksService.prototype.getTaskById = function (id, user) {
         return __awaiter(this, void 0, Promise, function () {
             var task;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.taskRepository.findOne(id)];
+                    case 0: return [4 /*yield*/, this.taskRepository.findOne({
+                            where: { id: id, userId: user.id }
+                        })];
                     case 1:
                         task = _a.sent();
                         if (!task)
@@ -98,10 +101,12 @@ var TasksService = /** @class */ (function () {
     };
     TasksService.prototype.updateTaskStatus = function (id, status) {
         return __awaiter(this, void 0, Promise, function () {
-            var task;
+            var user, task;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getTaskById(id)];
+                    case 0:
+                        user = new user_entity_1.User();
+                        return [4 /*yield*/, this.getTaskById(id, user)];
                     case 1:
                         task = _a.sent();
                         task.status = status;
