@@ -64,12 +64,13 @@ var passport_1 = require("@nestjs/passport");
 var typeorm_1 = require("@nestjs/typeorm");
 var passport_jwt_1 = require("passport-jwt");
 var user_repository_1 = require("./user.repository");
+var config = require("config");
 var JWTSStrategy = /** @class */ (function (_super) {
     __extends(JWTSStrategy, _super);
     function JWTSStrategy(userRepository) {
         var _this = _super.call(this, {
             jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
-            secretOrKey: 'topSecret51'
+            secretOrKey: process.env.JWT_SECRET || config.get('jwt.secret')
         }) || this;
         _this.userRepository = userRepository;
         return _this;

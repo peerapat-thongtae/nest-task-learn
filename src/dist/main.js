@@ -39,9 +39,10 @@ exports.__esModule = true;
 var common_1 = require("@nestjs/common");
 var core_1 = require("@nestjs/core");
 var app_module_1 = require("./app.module");
+var config = require("config");
 function bootstrap() {
     return __awaiter(this, void 0, void 0, function () {
-        var logger, app, port;
+        var logger, app, serverConfig, port;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -49,7 +50,8 @@ function bootstrap() {
                     return [4 /*yield*/, core_1.NestFactory.create(app_module_1.AppModule)];
                 case 1:
                     app = _a.sent();
-                    port = 3000;
+                    serverConfig = config.get('server');
+                    port = process.env.PORT || serverConfig.port;
                     return [4 /*yield*/, app.listen(port)];
                 case 2:
                     _a.sent();

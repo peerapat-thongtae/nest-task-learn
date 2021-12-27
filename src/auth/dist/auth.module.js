@@ -15,6 +15,8 @@ var auth_controller_1 = require("./auth.controller");
 var auth_service_1 = require("./auth.service");
 var jwt_strategy_1 = require("./jwt.strategy");
 var user_repository_1 = require("./user.repository");
+var config = require("config");
+var jwtConfig = config.get('jwt');
 var AuthModule = /** @class */ (function () {
     function AuthModule() {
     }
@@ -26,9 +28,9 @@ var AuthModule = /** @class */ (function () {
                     defaultStrategy: 'jwt'
                 }),
                 jwt_1.JwtModule.register({
-                    secret: 'topSecret51',
+                    secret: process.env.JWT_SECRET || jwtConfig.secret,
                     signOptions: {
-                        expiresIn: 3600
+                        expiresIn: jwtConfig.expiresIn
                     }
                 }),
             ],
