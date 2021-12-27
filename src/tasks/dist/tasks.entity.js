@@ -20,6 +20,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.Task = void 0;
+var user_entity_1 = require("src/auth/user.entity");
 var typeorm_1 = require("typeorm");
 var Task = /** @class */ (function (_super) {
     __extends(Task, _super);
@@ -38,6 +39,9 @@ var Task = /** @class */ (function (_super) {
     __decorate([
         typeorm_1.Column()
     ], Task.prototype, "status");
+    __decorate([
+        typeorm_1.ManyToOne(function () { return user_entity_1.User; }, function (user) { return user.tasks; }, { eager: false })
+    ], Task.prototype, "user");
     Task = __decorate([
         typeorm_1.Entity()
     ], Task);

@@ -57,6 +57,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.User = void 0;
 var bcrypt_1 = require("bcrypt");
+var tasks_entity_1 = require("src/tasks/tasks.entity");
 var typeorm_1 = require("typeorm");
 var User = /** @class */ (function (_super) {
     __extends(User, _super);
@@ -89,6 +90,9 @@ var User = /** @class */ (function (_super) {
     __decorate([
         typeorm_1.Column()
     ], User.prototype, "password");
+    __decorate([
+        typeorm_1.OneToMany(function () { return tasks_entity_1.Task; }, function (task) { return task.user; }, { eager: true })
+    ], User.prototype, "tasks");
     User = __decorate([
         typeorm_1.Entity(),
         typeorm_1.Unique(['username'])
