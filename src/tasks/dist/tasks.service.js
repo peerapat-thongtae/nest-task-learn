@@ -79,13 +79,17 @@ var TasksService = /** @class */ (function () {
             });
         });
     };
-    TasksService.prototype.deleteTaskById = function (id) {
+    TasksService.prototype.deleteTaskById = function (id, user) {
         return __awaiter(this, void 0, Promise, function () {
+            var result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.taskRepository["delete"](id)];
+                    case 0: return [4 /*yield*/, this.taskRepository["delete"]({ id: id, userId: user.id })];
                     case 1:
-                        _a.sent();
+                        result = _a.sent();
+                        if (result.affected === 0) {
+                            throw new common_1.NotFoundException("Task ID " + id + " Not found !");
+                        }
                         return [2 /*return*/];
                 }
             });
