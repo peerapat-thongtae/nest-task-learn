@@ -48,8 +48,6 @@ exports.__esModule = true;
 exports.TasksService = void 0;
 var common_1 = require("@nestjs/common");
 var typeorm_1 = require("@nestjs/typeorm");
-var task_status_enum_1 = require("./enum/task-status.enum");
-var tasks_entity_1 = require("./tasks.entity");
 var tasks_repository_1 = require("./tasks.repository");
 var TasksService = /** @class */ (function () {
     function TasksService(taskRepository) {
@@ -91,22 +89,10 @@ var TasksService = /** @class */ (function () {
             });
         });
     };
-    TasksService.prototype.createTask = function (createTaskDto) {
+    TasksService.prototype.createTask = function (createTaskDto, user) {
         return __awaiter(this, void 0, Promise, function () {
-            var title, description, task;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        title = createTaskDto.title, description = createTaskDto.description;
-                        task = new tasks_entity_1.Task();
-                        task.title = title;
-                        task.description = description;
-                        task.status = task_status_enum_1.TaskStatus.OPEN;
-                        return [4 /*yield*/, task.save()];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/, task];
-                }
+                return [2 /*return*/, this.taskRepository.createTask(createTaskDto, user)];
             });
         });
     };

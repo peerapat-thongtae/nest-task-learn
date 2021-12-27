@@ -12,6 +12,7 @@ exports.__esModule = true;
 exports.TasksController = void 0;
 var common_1 = require("@nestjs/common");
 var passport_1 = require("@nestjs/passport");
+var get_user_decorator_1 = require("src/auth/decorator/get-user.decorator");
 var task_status_validation_pipe_1 = require("src/pipes/task-status-validation.pipe");
 var TasksController = /** @class */ (function () {
     function TasksController(tasksService) {
@@ -26,8 +27,8 @@ var TasksController = /** @class */ (function () {
     TasksController.prototype.deleteTaskById = function (id) {
         return this.tasksService.deleteTaskById(id);
     };
-    TasksController.prototype.createTask = function (createTaskDto) {
-        return this.tasksService.createTask(createTaskDto);
+    TasksController.prototype.createTask = function (createTaskDto, user) {
+        return this.tasksService.createTask(createTaskDto, user);
     };
     TasksController.prototype.updateTaskStatus = function (id, status) {
         return this.tasksService.updateTaskStatus(id, status);
@@ -47,7 +48,8 @@ var TasksController = /** @class */ (function () {
     __decorate([
         common_1.Post(),
         common_1.UsePipes(common_1.ValidationPipe),
-        __param(0, common_1.Body())
+        __param(0, common_1.Body()),
+        __param(1, get_user_decorator_1.GetUser())
     ], TasksController.prototype, "createTask");
     __decorate([
         common_1.Patch(':id'),

@@ -57,6 +57,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.TaskRepository = void 0;
 var typeorm_1 = require("typeorm");
+var task_status_enum_1 = require("./enum/task-status.enum");
 var tasks_entity_1 = require("./tasks.entity");
 // Custom Repository Tasks
 // collect get create delete
@@ -83,6 +84,27 @@ var TaskRepository = /** @class */ (function (_super) {
                     case 1:
                         tasks = _a.sent();
                         return [2 /*return*/, tasks];
+                }
+            });
+        });
+    };
+    TaskRepository.prototype.createTask = function (createTaskDto, user) {
+        return __awaiter(this, void 0, Promise, function () {
+            var title, description, task;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        title = createTaskDto.title, description = createTaskDto.description;
+                        task = new tasks_entity_1.Task();
+                        task.title = title;
+                        task.description = description;
+                        task.status = task_status_enum_1.TaskStatus.OPEN;
+                        task.user = user;
+                        return [4 /*yield*/, task.save()];
+                    case 1:
+                        _a.sent();
+                        delete task.user;
+                        return [2 /*return*/, task];
                 }
             });
         });
