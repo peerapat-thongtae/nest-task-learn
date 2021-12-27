@@ -42,6 +42,9 @@ var Task = /** @class */ (function (_super) {
     __decorate([
         typeorm_1.ManyToOne(function () { return user_entity_1.User; }, function (user) { return user.tasks; }, { eager: false })
     ], Task.prototype, "user");
+    __decorate([
+        typeorm_1.Column()
+    ], Task.prototype, "userId");
     Task = __decorate([
         typeorm_1.Entity()
     ], Task);

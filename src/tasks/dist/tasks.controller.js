@@ -18,8 +18,8 @@ var TasksController = /** @class */ (function () {
     function TasksController(tasksService) {
         this.tasksService = tasksService;
     }
-    TasksController.prototype.getAllTasks = function (filterDto) {
-        return this.tasksService.getAllTasks(filterDto);
+    TasksController.prototype.getAllTasks = function (filterDto, user) {
+        return this.tasksService.getAllTasks(filterDto, user);
     };
     TasksController.prototype.getTaskById = function (id) {
         return this.tasksService.getTaskById(id);
@@ -35,7 +35,8 @@ var TasksController = /** @class */ (function () {
     };
     __decorate([
         common_1.Get(),
-        __param(0, common_1.Query(common_1.ValidationPipe))
+        __param(0, common_1.Query(common_1.ValidationPipe)),
+        __param(1, get_user_decorator_1.GetUser())
     ], TasksController.prototype, "getAllTasks");
     __decorate([
         common_1.Get(':id'),

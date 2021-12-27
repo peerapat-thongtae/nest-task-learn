@@ -53,11 +53,11 @@ var TasksService = /** @class */ (function () {
     function TasksService(taskRepository) {
         this.taskRepository = taskRepository;
     }
-    TasksService.prototype.getAllTasks = function (filterDto) {
+    TasksService.prototype.getAllTasks = function (filterDto, user) {
         return __awaiter(this, void 0, Promise, function () {
             var tasks;
             return __generator(this, function (_a) {
-                tasks = this.taskRepository.getAllTasks(filterDto);
+                tasks = this.taskRepository.getAllTasks(filterDto, user);
                 return [2 /*return*/, tasks];
             });
         });

@@ -66,7 +66,7 @@ var TaskRepository = /** @class */ (function (_super) {
     function TaskRepository() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    TaskRepository.prototype.getAllTasks = function (filterDto) {
+    TaskRepository.prototype.getAllTasks = function (filterDto, user) {
         return __awaiter(this, void 0, Promise, function () {
             var status, search, query, tasks;
             return __generator(this, function (_a) {
@@ -74,6 +74,7 @@ var TaskRepository = /** @class */ (function (_super) {
                     case 0:
                         status = filterDto.status, search = filterDto.search;
                         query = this.createQueryBuilder('task');
+                        query.where('task.userId = :userId', { userId: user.id });
                         if (status) {
                             query.andWhere('task.status = :status', { status: status });
                         }
