@@ -17,8 +17,10 @@ var task_status_validation_pipe_1 = require("src/pipes/task-status-validation.pi
 var TasksController = /** @class */ (function () {
     function TasksController(tasksService) {
         this.tasksService = tasksService;
+        this.logger = new common_1.Logger('TasksController');
     }
     TasksController.prototype.getAllTasks = function (filterDto, user) {
+        this.logger.verbose("User " + user.username + " get all tasks");
         return this.tasksService.getAllTasks(filterDto, user);
     };
     TasksController.prototype.getTaskById = function (id, user) {
