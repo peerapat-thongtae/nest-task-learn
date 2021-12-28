@@ -20,7 +20,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.Task = void 0;
-var user_entity_1 = require("src/auth/user.entity");
+var user_entity_1 = require("../auth/user.entity");
 var typeorm_1 = require("typeorm");
 var Task = /** @class */ (function (_super) {
     __extends(Task, _super);
