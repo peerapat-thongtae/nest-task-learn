@@ -14,12 +14,18 @@ var app_service_1 = require("./app.service");
 var typeorm_config_1 = require("./config/typeorm.config");
 var tasks_module_1 = require("./tasks/tasks.module");
 var auth_module_1 = require("./auth/auth.module");
+var config_1 = require("@nestjs/config");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         common_1.Module({
-            imports: [typeorm_1.TypeOrmModule.forRoot(typeorm_config_1.typeormConfig), tasks_module_1.TasksModule, auth_module_1.AuthModule],
+            imports: [
+                config_1.ConfigModule.forRoot({ isGlobal: true }),
+                typeorm_1.TypeOrmModule.forRoot(typeorm_config_1.typeormConfig),
+                tasks_module_1.TasksModule,
+                auth_module_1.AuthModule,
+            ],
             controllers: [app_controller_1.AppController],
             providers: [app_service_1.AppService]
         })
