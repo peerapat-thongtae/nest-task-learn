@@ -52,7 +52,6 @@ describe('TaskService', () => {
       taskRepository.findOne.mockResolvedValue(mockTask);
 
       const result = await tasksService.getTaskById(1, mockUser);
-      console.log('result', result);
       expect(result).toEqual(mockTask);
       expect(taskRepository.findOne).toHaveBeenCalledWith({
         where: { id: 1, userId: mockUser.id },

@@ -108,7 +108,6 @@ describe('TaskService', function () {
                         return [4 /*yield*/, tasksService.getTaskById(1, mockUser)];
                     case 1:
                         result = _a.sent();
-                        console.log('result', result);
                         expect(result).toEqual(mockTask);
                         expect(taskRepository.findOne).toHaveBeenCalledWith({
                             where: { id: 1, userId: mockUser.id }
